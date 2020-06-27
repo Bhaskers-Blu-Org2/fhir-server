@@ -11,7 +11,7 @@ using Microsoft.Health.Fhir.CosmosDb.Configs;
 namespace Microsoft.Health.Fhir.CosmosDb.Features.Storage
 {
     /// <summary>
-    /// Provides methods for creating a DocumentClient instance and initializing a collection.
+    /// Provides methods for creating a CosmosClient instance and initializing a collection.
     /// </summary>
     public interface ICosmosClientInitializer
     {
@@ -24,21 +24,21 @@ namespace Microsoft.Health.Fhir.CosmosDb.Features.Storage
 
         /// <summary>
         /// Perform a trivial query to establish a connection.
-        /// DocumentClient.OpenAsync() is not supported when a token is used as the access key.
+        /// CosmosClient.OpenAsync() is not supported when a token is used as the access key.
         /// </summary>
         /// <param name="client">The document client</param>
         /// <param name="configuration">The data store config</param>
         /// <param name="cosmosCollectionConfiguration">The collection configuration for the query to use</param>
-        Task OpenDocumentClient(CosmosClient client, CosmosDataStoreConfiguration configuration, CosmosCollectionConfiguration cosmosCollectionConfiguration);
+        Task OpenCosmosClient(CosmosClient client, CosmosDataStoreConfiguration configuration, CosmosCollectionConfiguration cosmosCollectionConfiguration);
 
         /// <summary>
         /// Ensures that the necessary database and collection exist with the proper indexing policy and stored procedures
         /// </summary>
-        /// <param name="documentClient">The <see cref="CosmosClient"/> instance to use for initialization.</param>
+        /// <param name="client">The <see cref="CosmosClient"/> instance to use for initialization.</param>
         /// <param name="cosmosDataStoreConfiguration">The data store configuration.</param>
         /// <param name="collectionInitializers">The collection of collection initializers.</param>
         /// <returns>A task</returns>
-        Task InitializeDataStore(CosmosClient documentClient, CosmosDataStoreConfiguration cosmosDataStoreConfiguration, IEnumerable<ICollectionInitializer> collectionInitializers);
+        Task InitializeDataStore(CosmosClient client, CosmosDataStoreConfiguration cosmosDataStoreConfiguration, IEnumerable<ICollectionInitializer> collectionInitializers);
 
         /// <summary>
         /// Creates a new Container instance for access the Cosmos API

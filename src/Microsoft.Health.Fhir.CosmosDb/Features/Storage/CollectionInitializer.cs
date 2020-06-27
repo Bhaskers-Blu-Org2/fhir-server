@@ -34,12 +34,12 @@ namespace Microsoft.Health.Fhir.CosmosDb.Features.Storage
             _logger = logger;
         }
 
-        public async Task<Container> InitializeCollection(CosmosClient documentClient)
+        public async Task<Container> InitializeCollection(CosmosClient client)
         {
-            Database database = documentClient.GetDatabase(_cosmosDataStoreConfiguration.DatabaseId);
+            Database database = client.GetDatabase(_cosmosDataStoreConfiguration.DatabaseId);
             Container containerClient = database.GetContainer(_collectionId);
 
-            var existingDocumentCollection = await database.TryGetDocumentCollectionAsync(_collectionId);
+            var existingDocumentCollection = await database.TryGetContainerAsync(_collectionId);
 
             if (existingDocumentCollection == null)
             {

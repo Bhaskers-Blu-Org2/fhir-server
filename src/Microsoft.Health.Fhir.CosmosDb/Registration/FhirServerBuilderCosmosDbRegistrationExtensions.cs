@@ -82,8 +82,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 .Singleton()
                 .AsService<ICosmosClientTestProvider>();
 
-            // Register IDocumentClient
-            // We are intentionally not registering IDocumentClient directly, because
+            // Register Container
+            // We are intentionally not registering Container directly, because
             // we want this codebase to support different configurations, where the
             // lifetime of the document clients can be managed outside of the IoC
             // container, which will automatically dispose it if exposed as a scoped
